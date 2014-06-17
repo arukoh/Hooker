@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-- 2.1.2
 - 2.0.0
 - 1.9.3
 deploy:
@@ -8,6 +7,7 @@ deploy:
   api_key:
     secure: CIedOmqx65tlHHl7bbWKzRz6Oix9XWKbnKE8xoFXQ3Qv29B//wHj2YadjcmrCO87BtZpRSpfxVYBlLOzLdIfIXdiQ7xLcLD89GA3IVe7XmsitEz+EA5fKyccxs86f1t3kkCgrD6RCBUSDpR2v9tMX16orAex7HE4DCvZ1/rMeks=
   app: hooker-arukoh
-  branch: master
   on:
     repo: arukoh/Hooker
+    branch: master
+    rvm: 2.0.0
