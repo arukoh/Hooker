@@ -10,7 +10,7 @@ module Hooker
       return 403 unless valid_request?
 
       body = JSON.parse(params[:payload])
-      TWITTER_CLIENT.update(travis_result(body))
+      TWITTER_CLIENT.update(URI.encode(travis_result(body)))
       204
     end
 
@@ -29,14 +29,14 @@ module Hooker
     end
 
     def travis_result(body)
+      # Format: http://docs.travis-ci.com/user/notifications/#Webhooks-Delivery-Format
       build_url  = body['build_url']
       status     = body['status_message']
-      repository = body['repository']['name']
-      owner      = body['repository']['owner_name']
-      [
-        "[#{status}] #{owner}/#{repository}",
-        URI.encode(build_url)
-      ].join("\n")
+      branch     = body['branch']
+      ~<<-RESULT
+      "[#{status}] #{repo_slug} (#{branch})"
+      #{build_url}
+      RESULT
     end
   end
 end
