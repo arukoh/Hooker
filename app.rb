@@ -34,7 +34,7 @@ module Hooker
       status     = body['status_message']
       branch     = body['branch']
       ~<<-RESULT
-      "[#{status}] #{repo_slug} (#{branch})"
+      [#{status}] #{repo_slug} (#{branch})
       #{URI.encode(build_url)}
       RESULT
     end
