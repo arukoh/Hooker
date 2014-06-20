@@ -10,7 +10,7 @@ module Hooker
       return 403 unless valid_request?
 
       body = JSON.parse(params[:payload])
-      TWITTER_CLIENT.update(URI.encode(travis_result(body)))
+      TWITTER_CLIENT.update(travis_result(body))
       204
     end
 
@@ -35,7 +35,7 @@ module Hooker
       branch     = body['branch']
       ~<<-RESULT
       "[#{status}] #{repo_slug} (#{branch})"
-      #{build_url}
+      #{URI.encode(build_url)}
       RESULT
     end
   end
