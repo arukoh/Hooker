@@ -9,6 +9,13 @@ module Hooker
     get '/whois' do
       env['HTTP_REFERER']
     end
+    
+    get 'badge' do
+      env['HTTP_REFERER'] =~ /https:\/\/github.com\/.*\/tree\/(.*)$/ # support only github
+      branch = $1 || "master"
+      redirect_url = params[:redirect_url].gsub(/REPLACE_THIS/, branch)
+      redirect redirect_url
+    end
 
     post '/travis' do
       return 403 unless valid_request?
