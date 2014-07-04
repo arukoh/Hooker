@@ -5,6 +5,10 @@ module Hooker
     get '/' do
       'alive'
     end
+    
+    get '/whois' do
+      env['HTTP_REFERER']
+    end
 
     post '/travis' do
       return 403 unless valid_request?
