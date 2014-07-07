@@ -13,7 +13,9 @@ module Hooker
     get '/badge' do
       env['HTTP_REFERER'] =~ /https:\/\/github.com\/.*\/tree\/(.*)$/ # support only github
       branch = $1 || "master"
-      redirect params[:redirect_url].gsub(/REPLACE_THIS/, branch)
+      400 unless params[:redirect_url]
+      redirect_url = CGI.unescape(params[:redirect_url])
+      redirect redirect_url.gsub(/REPLACE_THIS/, branch)
     end
 
     post '/travis' do
